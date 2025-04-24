@@ -9,6 +9,6 @@ namespace Domain.Interfaces
 
         Task<AlumnoEtd> Obtener_Alumno_Detalle(string numeroControl);
 
-        Task<ProcesoDto<bool>> Crear_CatUsuarioSistema(AlumnoEtd alumno);
+        Task<ProcesoDto<bool>> Registrar_Alumno(AlumnoEtd alumno);
     }
 }
