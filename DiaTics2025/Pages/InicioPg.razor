@@ -1,6 +1,11 @@
-﻿<!-- Hero Section -->
-<section id="Inicio" class="inicio section">
+﻿@using Domain.Interfaces
+@inject IAlumnoItf _alumno
 
+<!-- Hero Section -->
+<section id="Inicio" class="inicio section">
+    <div>
+        @varExample
+    </div>
     <div class="container">
         <div class="row gy-4">
             <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
@@ -18,3 +23,12 @@
     </div>
 
 </section>
+@code{
+    public string varExample = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        varExample = _alumno.Ejemplo();
+    }
+
+}
