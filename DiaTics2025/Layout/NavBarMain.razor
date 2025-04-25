@@ -15,8 +15,15 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
 
-    <a class="btn-getstarted flex-md-shrink-0" href="index.html#about">Registro</a>
+    <NavLink class="btn-getstarted flex-md-shrink-0" href="/registroAlumno">
+        Registro
+    </NavLink>
 
 </div>
 
-
+@code {
+    public void Imprimir()
+    {
+        Console.WriteLine("Hola");
+    }
+}

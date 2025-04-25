@@ -1,0 +1,113 @@
+﻿@page "/registroAlumno"
+@using Domain
+@using Domain.Entities
+@using Domain.Interfaces
+@inject IAlumnoItf _alumnoService
+
+<section id="Registro" class="registro section mt-5">
+
+
+    <div class="container section-title" data-aos="fade-up">
+
+        <h2 class="active me-2">Alumnos</h2>
+
+        <NavLink href="/registroInvitado">
+            <h2>Invitados</h2>
+        </NavLink>
+
+        <p>Registro</p>
+    </div>
+    @if (cargando)
+    {
+        <div class="vh-100 d-flex align-items-center justify-content-center gap-3">
+            <div class="h5 spinner-border"></div>
+            <div class="h2">Please wait</div>
+        </div>
+    }
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row justify-content-center gy-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="numeroControl" class="form-label">Número de control</label>
+                        <input id="numeroControl" class="form-control" @bind="numeroControl" />
+                    </div>
+                    <div class="col-md-6 d-flex align-items-end">
+                        <button class="btn btn-primary" @onclick="BuscarAlumno">Buscar</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-3">
+
+                    <div class="col-md-6">
+                        <label for="nombre" class="form-label">Nombre completo</label>
+                        <label id="nombre" class="form-control bg-light">
+                            @((MarkupString)(alumnoEtd == null
+                                ? "&nbsp;"
+                                : $"{alumnoEtd.Nombre} {alumnoEtd.ApellidoPaterno} {alumnoEtd.ApellidoMaterno}"))
+                        </label>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="carrera" class="form-label">Carrera</label>
+                        <label id="carrera" class="form-control bg-light">
+                            @((MarkupString)(alumnoEtd == null
+                                ? "&nbsp;"
+                                : $"{alumnoEtd.Carrera}"))
+                        </label>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="estaRegistrado" class="form-label">Está registrado</label>
+                        <label id="estaRegistrado" class="form-control bg-light">
+                            @((MarkupString)(alumnoEtd == null
+                                ? "&nbsp;"
+                                : $"{(alumnoEtd.RegistradoParaEvento ? "Sí" : "No")}"))
+                        </label>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="fechaRegistro" class="form-label">Fecha de registro</label>
+                        <label id="fechaRegistro" class="form-control bg-light">
+                            @((MarkupString)(alumnoEtd?.FechaRegistro != null
+                                ? alumnoEtd.FechaRegistro.Value.ToString(FormatValue.LongDate)
+                                : "&nbsp;"))
+                        </label>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col text-center">
+                            <button class="btn btn-primary" @onclick="RegistrarAlEvento">Registrar al evento</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+@code {
+    private bool cargando = false;
+    private string numeroControl = "";
+    private AlumnoEtd? alumnoEtd;
+
+    private async Task BuscarAlumno()
+    {
+        if (!string.IsNullOrEmpty(numeroControl))
+        {
+            cargando = true;
+            alumnoEtd = await _alumnoService.Obtener_Alumno_Detalle(numeroControl);
+            cargando = false;
+            Console.WriteLine(alumnoEtd);
+        }
+    }
+
+    private async Task RegistrarAlEvento()
+    {
+
+    }
+}

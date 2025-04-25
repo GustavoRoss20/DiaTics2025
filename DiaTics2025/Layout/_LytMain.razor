@@ -1,25 +1,15 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
 @using DiaTics2025.Pages;
+
 <header id="header" class="header d-flex align-items-center fixed-top">
     <NavBarMain />
 </header>
 
 <main class="main">
-    
-    <!-- Inicio Section -->   
-    <InicioPg />
-    <!-- /Inicio Section -->
-
-    <!-- Programa Section -->
-    <ProgramaPg />
-    <!-- /Programa Section -->      
-
-    <!-- InvitadosEspeciales Section -->
-    <InvitadosEspecialesPg />
-    <!-- /InvitadosEspeciales Section -->    
-
+    @Body
 </main>
+
 
 <footer id="footer" class="footer">   
     <div class="container copyright text-center mt-4">

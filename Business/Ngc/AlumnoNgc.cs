@@ -19,6 +19,23 @@ namespace Business.Ngc
 
         #endregion
 
+        public async Task<AlumnoEtd> Obtener_Alumno_Detalle(string numeroControl)
+        {
+            var alumno_Qry = from a in _efRpstry.Queryanle<AlumnoEtd>()
+                             where a.NumeroControl == numeroControl
+                             select new AlumnoEtd
+                             {
+                                 NumeroControl = a.NumeroControl,
+                                 Nombre = a.Nombre,
+                                 ApellidoPaterno = a.ApellidoPaterno,
+                                 ApellidoMaterno = a.ApellidoMaterno,
+                                 Carrera = a.Carrera
+                             };
+
+            var result = await alumno_Qry.SingleOrDefaultAsync();
+            return result;
+        }
+
         public async Task<ProcesoDto<bool>> Registrar_Alumno(AlumnoEtd alumno)
         {
             var proceso = new ProcesoDto<bool>();
@@ -66,29 +83,6 @@ namespace Business.Ngc
             }
 
             return proceso;
-        }
-
-
-        public string Ejemplo()
-        {
-            return "hOLA";
-        }
-
-        public async Task<AlumnoEtd> Obtener_Alumno_Detalle(string numeroControl)
-        {
-            var alumno_Qry = from a in _efRpstry.Queryanle<AlumnoEtd>()
-                             where a.NumeroControl == numeroControl
-                             select new AlumnoEtd
-                             {
-                                 NumeroControl = a.NumeroControl,
-                                 Nombre = a.Nombre,
-                                 ApellidoPaterno = a.ApellidoPaterno,
-                                 ApellidoMaterno = a.ApellidoMaterno,
-                                 Carrera = a.Carrera
-                             };
-
-            var result = await alumno_Qry.SingleOrDefaultAsync();
-            return result;
-        }
+        }        
     }
 }

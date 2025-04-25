@@ -1,14 +1,14 @@
-﻿using Business.Ngc;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
+using Service.Srv;
 
 namespace DiaTics2025
 {
     public static class Ioc
     {
-        public static IServiceCollection AddBusiness(this IServiceCollection services)
+        public static IServiceCollection AddService(this IServiceCollection services)
         {
-            services.AddScoped<IAlumnoItf, AlumnoNgc>();
-            services.AddScoped<IInvitadoItf, InvitadoNgc>();
+            services.AddScoped<IAlumnoItf, AlumnoSrv>();
+            services.AddScoped<IInvitadoItf, InvitadoSrv>();
 
             return services;
         }

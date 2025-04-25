@@ -45,11 +45,12 @@ BEGIN
 		-- DROP TABLE Invitado
 		CREATE TABLE [dbo].[Invitado]
 		(
-			[Id]					INT				NOT NULL, 
+			[Id]					INT				NOT NULL IDENTITY, 
 			[Nombre]				VARCHAR(100)	NOT NULL,
 			[ApellidoPaterno]		VARCHAR(50)		NOT NULL,
 			[ApellidoMaterno]		VARCHAR(50)		NOT NULL,
 			[Escuela]				VARCHAR(100)	NOT NULL,
+			[CorreoElectronico]		VARCHAR(100)	NOT NULL,
 			[FechaRegistro]			DATETIME		NOT NULL
 			CONSTRAINT [PK_Invitado] PRIMARY KEY ([Id])
 		)

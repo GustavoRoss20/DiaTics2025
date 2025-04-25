@@ -26,6 +26,9 @@ namespace Business.Configuration
             //Escuela varchar	100	no
             builder.Property(x => x.Escuela).IsUnicode(false);
 
+            //CorreoElectronico varchar	100	no
+            builder.Property(x => x.CorreoElectronico).IsUnicode(false);
+
             //FechaRegistro   datetime	8	no
             builder.Property(x => x.FechaRegistro);
         }

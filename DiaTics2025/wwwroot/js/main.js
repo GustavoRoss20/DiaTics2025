@@ -6,8 +6,6 @@
  * License: https://bootstrapmade.com/license/
  */
 
-console.log('main.js cargado'); // Para depuración
-
 window.initializeFlexStart = function () {
     "use strict";
 
@@ -219,20 +217,32 @@ window.initializeFlexStart = function () {
      * Navmenu Scrollspy
      */
     let navmenulinks = document.querySelectorAll('.navmenu a');
+
     function navmenuScrollspy() {
+        let isAnySectionActive = false;        
+        // Iterar sobre los enlaces para determinar si alguna sección está activa
         navmenulinks.forEach((navmenulink) => {
             if (!navmenulink.hash) return;
+
             let section = document.querySelector(navmenulink.hash);
             if (!section) return;
+
             let position = window.scrollY + 200;
             if (position >= section.offsetTop && position <= section.offsetTop + section.offsetHeight) {
+                isAnySectionActive = true;
+                // Eliminar 'active' de todos los enlaces
                 document.querySelectorAll('.navmenu a.active').forEach((link) => link.classList.remove('active'));
+                // Agregar 'active' al enlace actual
                 navmenulink.classList.add('active');
-            } else {
-                navmenulink.classList.remove('active');
             }
         });
+
+        // Si ninguna sección está activa, eliminar 'active' de todos los enlaces
+        if (!isAnySectionActive) {
+            document.querySelectorAll('.navmenu a.active').forEach((link) => link.classList.remove('active'));
+        }
     }
+
     document.addEventListener('scroll', navmenuScrollspy);
     navmenuScrollspy();
 };

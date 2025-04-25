@@ -1,0 +1,6 @@
+@DiaTicsWebApi_HostAddress = http://localhost:5062
+
+GET {{DiaTicsWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

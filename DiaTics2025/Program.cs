@@ -1,18 +1,23 @@
-using Business;
 using DiaTics2025;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Service;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-//GRR: IOC Repository
-builder.Services.AddRepositoryViProduce(builder.Configuration.GetConnectionString("DiaTics2025DB") ?? "");
+// GRR: HTTPCLIENT
+builder.Services.AddHttpClient("", config =>
+{
+    config.BaseAddress = new Uri("https://localhost:7243/");
+    config.DefaultRequestHeaders.Clear();
+});
+// GRR: FACTORY HTTPCLIENTS
+builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
+// GRR: INJECT IOC SERVICE
+builder.Services.AddService();
 
-// GRR: IOC Business
-builder.Services.AddBusiness();
-
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://tu-backend/api/") });
 
 await builder.Build().RunAsync();
