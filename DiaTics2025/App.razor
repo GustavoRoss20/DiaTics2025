@@ -1,4 +1,7 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@using Blazored.Toast
+@using Blazored.Toast.Services
+
+<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(_LytMain)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
@@ -10,3 +13,5 @@
         </LayoutView>
     </NotFound>
 </Router>
+<BlazoredToasts 
+    Position="Blazored.Toast.Configuration.ToastPosition.BottomRight"/>

@@ -3,6 +3,7 @@
 @using Domain.Entities
 @using Domain.Interfaces
 @inject IInvitadoItf _invitadoService
+@inject IToastService ToastService
 
 <section id="Registro" class="registro section mt-5">
 
@@ -83,6 +84,14 @@
     {
         cargando = true;
         var result = await _invitadoService.Registrar_Invitado(invitado);
+        if (result.Resultado)
+        {
+            ToastService.ShowSuccess(result.Mensaje);            
+        }
+        else
+        {
+            ToastService.ShowError(result.Mensaje);
+        }
         Console.WriteLine(result);
         cargando = false;
     }

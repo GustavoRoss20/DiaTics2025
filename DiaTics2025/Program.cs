@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using DiaTics2025;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -19,5 +20,6 @@ builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>(
 builder.Services.AddService();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://tu-backend/api/") });
+builder.Services.AddBlazoredToast();
 
 await builder.Build().RunAsync();

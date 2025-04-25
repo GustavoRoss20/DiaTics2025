@@ -2772,3 +2772,53 @@ section,
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     transform: scale(1.05); 
 }
+
+/* Estilos para Blazored.Toaster */
+.blazored-toast {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important; 
+    width: 500px !important; 
+    max-width: 90% !important; 
+    min-height: 100px !important; 
+    padding: 20px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
+    z-index: 2000 !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 2rem !important;
+    color: black !important;
+}
+
+.blazored-toast-success {
+    background-color: #28a745; 
+    border: 2px solid #218838;
+}
+
+.blazored-toast-error {
+    background-color: #dc3545; 
+    border: 2px solid #c82333;
+}
+
+.blazored-toast-warning {
+    background-color: #ffc107; 
+    border: 2px solid #e0a800;
+    color: black ;
+}
+
+.blazored-toast .toast-body {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.blazored-toast .close {
+    color: inherit;
+    opacity: 0.8;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

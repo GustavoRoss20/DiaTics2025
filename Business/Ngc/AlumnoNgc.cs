@@ -29,7 +29,9 @@ namespace Business.Ngc
                                  Nombre = a.Nombre,
                                  ApellidoPaterno = a.ApellidoPaterno,
                                  ApellidoMaterno = a.ApellidoMaterno,
-                                 Carrera = a.Carrera
+                                 Carrera = a.Carrera,
+                                 RegistradoParaEvento = a.RegistradoParaEvento,
+                                 FechaRegistro = a.FechaRegistro
                              };
 
             var result = await alumno_Qry.SingleOrDefaultAsync();
