@@ -52,7 +52,8 @@ BEGIN
 			[Escuela]				VARCHAR(100)	NOT NULL,
 			[CorreoElectronico]		VARCHAR(100)	NOT NULL,
 			[FechaRegistro]			DATETIME		NOT NULL
-			CONSTRAINT [PK_Invitado] PRIMARY KEY ([Id])
+			CONSTRAINT [PK_Invitado] PRIMARY KEY ([Id]),
+			CONSTRAINT [UK_Invitado] UNIQUE ([CorreoElectronico])
 		)
 
 	END
