@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\img\infologo-removebg-preview.png" />
     <Content Remove="wwwroot\img\primera.jpg" />
+    <Content Remove="wwwroot\img\tec_logo-removebg-preview.png" />
   </ItemGroup>
 
   <ItemGroup>
