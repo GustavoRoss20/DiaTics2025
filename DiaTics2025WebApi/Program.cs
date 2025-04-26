@@ -1,4 +1,5 @@
 using Business;
+using Business.Settings;
 using DiaTics2025WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,9 @@ builder.Services.AddRepositoryViProduce(builder.Configuration.GetConnectionStrin
 builder.Services.AddBusiness();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+//GRR: IOC Email settings
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameof(EmailSettings)));
+builder.Services.AddTransient<EmailService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

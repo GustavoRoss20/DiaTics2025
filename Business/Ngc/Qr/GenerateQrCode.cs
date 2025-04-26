@@ -1,6 +1,4 @@
 ﻿using QRCoder;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Net.Mail;
 using System.Net.Mime;
 
@@ -8,38 +6,36 @@ namespace Business.Ngc.Qr
 {
     internal static class GenerateQrCode
     {
-        //public static Attachment Obtener_Qr_PorTexto(string texto)
-        //{
-        //    //try
-        //    //{
-        //    //    // Crear el generador de QR
-        //    //    QRCodeGenerator qrGenerator = new QRCodeGenerator();
-        //    //    QRCodeData qrCodeData = qrGenerator.CreateQrCode(texto, QRCodeGenerator.ECCLevel.Q);
-        //    //    QRCode qrCode = new QRCode(qrCodeData);
+        public static Attachment Obtener_Qr_PorTexto(string texto)
+        {
+            try
+            {  
+                var qrGenerator = new QRCodeGenerator();
+                var qrCodeData = qrGenerator.CreateQrCode(texto, QRCodeGenerator.ECCLevel.Q);
 
-        //    //    // Generar la imagen del QR
-        //    //    using (Bitmap qrCodeImage = qrCode.GetGraphic(20))
-        //    //    {
-        //    //        // Convertir la imagen a un MemoryStream
-        //    //        using (MemoryStream ms = new MemoryStream())
-        //    //        {
-        //    //            qrCodeImage.Save(ms, ImageFormat.Png);
-        //    //            ms.Position = 0;
+                // PNG en forma de byte[]  
+                PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
+                byte[] qrCodeBytes = qrCode.GetGraphic(20);
 
-        //    //            // Crear el adjunto
-        //    //            ContentType contentType = new ContentType(MediaTypeNames.Image.Png);
-        //    //            Attachment attachment = new Attachment(ms, "qr", MediaTypeNames.Image.Png);
-        //    //            attachment.ContentDisposition.FileName = "qr";
-        //    //            attachment.ContentType = contentType;
+                // Convertir el byte[] a MemoryStream  
+                MemoryStream ms = new MemoryStream(qrCodeBytes);
 
-        //    //            return attachment;
-        //    //        }
-        //    //    }
-        //    //}
-        //    //catch (Exception ex)
-        //    //{
-        //    //    throw new Exception("Error al generar el código QR: " + ex.Message);
-        //    //}
-        //}
+                // Crear el adjunto  
+                ContentType contentType = new ContentType(MediaTypeNames.Image.Png);
+                Attachment attachment = new Attachment(ms, "qr.png", MediaTypeNames.Image.Png); 
+                if (attachment.ContentDisposition != null)
+                {
+                    attachment.ContentDisposition.FileName = "qr.png";
+                }
+
+                attachment.ContentType = contentType;
+
+                return attachment;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al generar el código QR: " + ex.Message, ex);
+            }
+        }
     }
 }

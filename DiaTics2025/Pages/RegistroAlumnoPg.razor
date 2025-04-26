@@ -45,8 +45,8 @@
                         <label for="nombre" class="form-label">Nombre completo</label>
                         <label id="nombre" class="form-control bg-light">
                             @((MarkupString)(alumnoEtd == null
-                                    ? "&nbsp;"
-                                    : $"{alumnoEtd.Nombre} {alumnoEtd.ApellidoPaterno} {alumnoEtd.ApellidoMaterno}"))
+                                ? "&nbsp;"
+                                : $"{alumnoEtd.Nombre} {alumnoEtd.ApellidoPaterno} {alumnoEtd.ApellidoMaterno}"))
                         </label>
                     </div>
 
@@ -54,8 +54,8 @@
                         <label for="carrera" class="form-label">Carrera</label>
                         <label id="carrera" class="form-control bg-light">
                             @((MarkupString)(alumnoEtd == null
-                                    ? "&nbsp;"
-                                    : $"{alumnoEtd.Carrera}"))
+                                ? "&nbsp;"
+                                : $"{alumnoEtd.Carrera}"))
                         </label>
                     </div>
 
@@ -63,8 +63,8 @@
                         <label for="estaRegistrado" class="form-label">Está registrado</label>
                         <label id="estaRegistrado" class="form-control bg-light">
                             @((MarkupString)(alumnoEtd == null
-                                    ? "&nbsp;"
-                                    : $"{(alumnoEtd.RegistradoParaEvento ? "Sí" : "No")}"))
+                                ? "&nbsp;"
+                                : $"{(alumnoEtd.RegistradoParaEvento ? "Sí" : "No")}"))
                         </label>
                     </div>
 
@@ -72,8 +72,8 @@
                         <label for="fechaRegistro" class="form-label">Fecha de registro</label>
                         <label id="fechaRegistro" class="form-control bg-light">
                             @((MarkupString)(alumnoEtd?.FechaRegistro != null
-                                    ? alumnoEtd.FechaRegistro.Value.ToString(FormatValue.LongDate)
-                                    : "&nbsp;"))
+                                ? alumnoEtd.FechaRegistro.Value.ToString(FormatValue.LongDate)
+                                : "&nbsp;"))
                         </label>
                     </div>
                     @if (mostrarBotonRegistro)
@@ -106,7 +106,6 @@
             cargando = true;
             alumnoEtd = await _alumnoService.Obtener_Alumno_Detalle(numeroControl);
             cargando = false;
-            Console.WriteLine(alumnoEtd);
 
             mostrarBotonRegistro = alumnoEtd != null && !alumnoEtd.RegistradoParaEvento;
         }
@@ -121,6 +120,9 @@
             if (result.Resultado)
             {
                 ToastService.ShowSuccess(result.Mensaje);
+                mostrarBotonRegistro = false;
+                alumnoEtd.RegistradoParaEvento = true;
+                alumnoEtd.FechaRegistro = DateTime.Now;
             }
             else
             {

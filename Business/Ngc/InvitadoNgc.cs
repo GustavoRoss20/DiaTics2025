@@ -11,10 +11,14 @@ namespace Business.Ngc
         #region IOC
 
         private readonly IEfRepository _efRpstry;
+        private readonly EmailService _emailService;
 
-        public InvitadoNgc(IEfRepository efRpstry)
+        public InvitadoNgc(
+            IEfRepository efRpstry, 
+            EmailService emailService)
         {
             _efRpstry = efRpstry;
+            _emailService = emailService;
         }
 
         #endregion
@@ -26,6 +30,20 @@ namespace Business.Ngc
 
             try
             {
+                #region VALIDAR EMAIL
+
+                var hayMismoEmail = _efRpstry.Queryanle<InvitadoEtd>()
+                    .Any(i => i.CorreoElectronico == invitado.CorreoElectronico);
+
+                if (hayMismoEmail)
+                {
+                    proceso.Resultado = false;
+                    proceso.Mensaje = "Ya hay un correo en el sistema.";
+                    return proceso;
+                }
+
+                #endregion
+
                 _efRpstry.BeginTransaction();
 
                 #region AGREGAR Invitado
@@ -33,8 +51,13 @@ namespace Business.Ngc
                 invitado.FechaRegistro = DateTime.Now;
 
                 _efRpstry.Add(invitado);
-
                 await _efRpstry.SaveChangesAsync();
+
+                #endregion
+
+                #region ENVIAR EMAIL
+                
+                _emailService.EnviarCorreoConQr(invitado.CorreoElectronico, invitado.Id.ToString());
 
                 #endregion
 
@@ -56,6 +79,6 @@ namespace Business.Ngc
             }
 
             return proceso;
-        }
+        }        
     }
 }

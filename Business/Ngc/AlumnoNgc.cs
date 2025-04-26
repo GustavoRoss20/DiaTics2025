@@ -11,10 +11,14 @@ namespace Business.Ngc
         #region IOC
 
         private readonly IEfRepository _efRpstry;
+        private readonly EmailService _emailService;
 
-        public AlumnoNgc(IEfRepository efRpstry)
+        public AlumnoNgc(
+            IEfRepository efRpstry,
+            EmailService emailService)
         {
             _efRpstry = efRpstry;
+            _emailService = emailService;
         }
 
         #endregion
@@ -35,7 +39,7 @@ namespace Business.Ngc
                              };
 
             var result = await alumno_Qry.SingleOrDefaultAsync();
-            return result;
+            return result!;
         }
 
         public async Task<ProcesoDto<bool>> Registrar_Alumno(AlumnoEtd alumno)
@@ -44,8 +48,9 @@ namespace Business.Ngc
 
             try
             {
-                // Buscar si el alumno existe
                 var alumno_Etd = _efRpstry.Find<AlumnoEtd, string>(alumno.NumeroControl);
+
+                #region Busca al alumno
 
                 if (alumno_Etd is null)
                 {
@@ -53,6 +58,8 @@ namespace Business.Ngc
                     proceso.Mensaje = "El alumno no existe en el sistema.";
                     return proceso;
                 }
+
+                #endregion
 
                 _efRpstry.BeginTransaction();
 
@@ -63,6 +70,13 @@ namespace Business.Ngc
 
                 _efRpstry.Update(alumno_Etd);
                 await _efRpstry.SaveChangesAsync();
+
+                #endregion
+
+                #region Enviar correo
+
+                var correo = Prv_Obtener_CorreoElectronicoInstitucional(alumno_Etd.NumeroControl);
+                _emailService.EnviarCorreoConQr(correo, alumno_Etd.NumeroControl);
 
                 #endregion
 
@@ -85,6 +99,11 @@ namespace Business.Ngc
             }
 
             return proceso;
-        }        
+        }
+
+        string Prv_Obtener_CorreoElectronicoInstitucional(string numeroControl)
+        {
+            return $"{numeroControl.Trim()}@cdserdan.tecnm.mx";
+        }
     }
 }

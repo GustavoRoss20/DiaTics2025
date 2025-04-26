@@ -75,11 +75,9 @@
 @code {
     private bool cargando = false;
     private bool formIsValid = false;
-
-    // Modelo para el registro de un invitado
+    // Modelo
     private InvitadoEtd invitado = new InvitadoEtd();
 
-    // Método que se invoca cuando el formulario se envía correctamente
     private async Task HandleValidSubmit()
     {
         cargando = true;
@@ -92,11 +90,9 @@
         {
             ToastService.ShowError(result.Mensaje);
         }
-        Console.WriteLine(result);
         cargando = false;
     }
 
-    // Actualiza la validez del formulario al modificar cualquier campo
     private void OnInputChanged()
     {
         formIsValid = !string.IsNullOrEmpty(invitado.Nombre);
