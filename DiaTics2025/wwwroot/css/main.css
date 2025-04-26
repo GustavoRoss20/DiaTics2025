@@ -216,12 +216,76 @@ h6 {
   --background-color: #ffffff;
 }
 
+
+/*NUBECITA DE LOADING*/
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #e0f7fa; /* azul cielo */
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.cloud {
+    width: 120px;
+    height: 60px;
+    background: #b3e5fc;
+    border-radius: 60px;
+    position: relative;
+    animation: float 2s ease-in-out infinite;
+    margin-bottom: 20px;
+    box-shadow: 30px 0 #b3e5fc, 60px 0 #b3e5fc, 15px -20px #b3e5fc, 45px -20px #b3e5fc;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.face {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    width: 70px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.eye {
+    width: 8px;
+    height: 8px;
+    background: #333;
+    border-radius: 50%;
+}
+
+.smile {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 10px;
+    border-bottom: 3px solid #333;
+    border-radius: 0 0 50px 50px;
+}
+
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
 /* Navmenu - Desktop */
 @media (min-width: 1200px) {
-  .navmenu {
+    .navmenu {
     padding: 0;
   }
 
