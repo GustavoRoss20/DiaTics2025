@@ -1323,12 +1323,16 @@ section,
 
     .invitadosEspeciales .service-item:hover h3,
     .invitadosEspeciales .service-item:hover p,
-    .invitadosEspeciales .service-item:hover .read-more {
+    .invitadosEspeciales .service-item:hover .read-more
+    {
         color: #fff;
     }
 
     .invitadosEspeciales .service-item:hover .icon {
         background: #fff;
+    }
+    .invitadosEspeciales .service-item:hover .list-unstyled li {
+        color: #fff !important;
     }
 
 /*--------------------------------------------------------------
