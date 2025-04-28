@@ -29,10 +29,10 @@ BEGIN
 			CONSTRAINT [PK_Taller] PRIMARY KEY ([Id]),
 		)
 
-	    INSERT INTO Evento VALUES(1, 'Desarrollo Web con IA')
-	    INSERT INTO Evento VALUES(2, 'Hacking ético y buenas prácticas de seguridad informática')
-	    INSERT INTO Evento VALUES(3, 'Electrónica')
-	    INSERT INTO Evento VALUES(4, 'Desarrollo de Apps móviles')
+	    INSERT INTO Taller VALUES(1, 'Desarrollo Web con IA')
+	    INSERT INTO Taller VALUES(2, 'Hacking ético y buenas prácticas de seguridad informática')
+	    INSERT INTO Taller VALUES(3, 'Electrónica')
+	    INSERT INTO Taller VALUES(4, 'Desarrollo de Apps móviles')
 
 	END
 
