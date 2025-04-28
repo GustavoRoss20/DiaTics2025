@@ -40,7 +40,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("PermitirTodo");
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 

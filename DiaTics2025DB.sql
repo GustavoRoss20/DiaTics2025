@@ -16,6 +16,27 @@ USE DiaTics2025DB
 
 BEGIN
 
+    -- ====================================================
+	-- Taller
+	-- ====================================================
+	BEGIN
+
+		-- DROP TABLE Taller
+		CREATE TABLE [dbo].[Taller]
+		(
+			[Id]			        TINYINT 		NOT NULL,
+			[Nombre]				VARCHAR(50)		NOT NULL,
+			CONSTRAINT [PK_Taller] PRIMARY KEY ([Id]),
+		)
+
+	    INSERT INTO Evento VALUES(1, 'Desarrollo Web con IA')
+	    INSERT INTO Evento VALUES(2, 'Hacking ético y buenas prácticas de seguridad informática')
+	    INSERT INTO Evento VALUES(3, 'Electrónica')
+	    INSERT INTO Evento VALUES(4, 'Desarrollo de Apps móviles')
+
+	END
+
+
 	-- ====================================================
 	-- Alumno										
 	-- ====================================================
@@ -29,8 +50,8 @@ BEGIN
 			[ApellidoPaterno]		VARCHAR(50)		NOT NULL,
 			[ApellidoMaterno]		VARCHAR(50)		NOT NULL,
 			[Carrera]				VARCHAR(50)		NOT NULL,
-			[RegistradoParaEvento]	BIT			NOT NULL,
-			[FechaRegistro]			DATETIME	NULL,
+			[RegistradoParaEvento]	BIT			    NOT NULL,
+			[FechaRegistro]			DATETIME	    NULL,
 			CONSTRAINT [PK_Alumno] PRIMARY KEY ([NumeroControl]),
 		)
 		
@@ -51,11 +72,15 @@ BEGIN
 			[ApellidoMaterno]		VARCHAR(50)		NOT NULL,
 			[Escuela]				VARCHAR(100)	NOT NULL,
 			[CorreoElectronico]		VARCHAR(100)	NOT NULL,
-			[FechaRegistro]			DATETIME		NOT NULL
+			[FechaRegistro]			DATETIME		NOT NULL,
+            [IdTallerRegistrado]    TINYINT         NOT NULL,
 			CONSTRAINT [PK_Invitado] PRIMARY KEY ([Id]),
-			CONSTRAINT [UK_Invitado] UNIQUE ([CorreoElectronico])
+			CONSTRAINT [UK_Invitado] UNIQUE ([CorreoElectronico]),
+            CONSTRAINT [FK_Invitado_Taller]
+				FOREIGN KEY ([IdTallerRegistrado]) REFERENCES Taller([Id])
 		)
 
 	END
+
 
 END

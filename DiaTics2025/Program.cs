@@ -11,7 +11,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 // GRR: HTTPCLIENT
 builder.Services.AddHttpClient("", config =>
 {
-    config.BaseAddress = new Uri("https://localhost:7243/");
+    config.BaseAddress = new Uri("http://localhost:5000/");
     config.DefaultRequestHeaders.Clear();
 });
 // GRR: FACTORY HTTPCLIENTS

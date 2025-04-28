@@ -1,0 +1,36 @@
+# Etapa de build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copiamos la solución
+COPY DiaTics2025.sln .
+
+# Copiamos todos los proyectos necesarios 
+COPY DiaTics2025/DiaTics2025.csproj DiaTics2025/
+
+COPY Shared/Domain.csproj Shared/
+COPY DiaTics2025Pxy/Service.csproj DiaTics2025Pxy/
+
+COPY . .
+
+# Restauramos las dependencias
+RUN dotnet restore DiaTics2025.sln
+
+# Publicamos la app en modo Release
+WORKDIR /src/DiaTics2025
+RUN dotnet publish -c Release -o /app/build
+
+# Etapa de producción
+FROM nginx:alpine AS final
+
+# Borramos el contenido por defecto de nginx (opcional pero recomendado)
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copiamos los archivos publicados al contenedor de producción
+COPY --from=build /app/build/wwwroot /usr/share/nginx/html
+
+# Exponemos el puerto (por si quieres hacerlo explícito)
+EXPOSE 80
+
+# Comando por defecto de nginx
+CMD ["nginx", "-g", "daemon off;"]
