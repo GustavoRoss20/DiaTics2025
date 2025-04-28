@@ -31,6 +31,13 @@ namespace Business.Configuration
 
             //FechaRegistro   datetime	8	no
             builder.Property(x => x.FechaRegistro);
+
+            //IdTallerRegistrado tinyint 1	no
+            builder.Property(x => x.IdTallerRegistrado);
+            builder.HasOne(p => p.TallerRegistrado)
+                .WithMany(p => p.LstInvitado)
+                .HasForeignKey(p => p.IdTallerRegistrado)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

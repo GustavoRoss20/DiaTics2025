@@ -25,7 +25,7 @@ BEGIN
 		CREATE TABLE [dbo].[Taller]
 		(
 			[Id]			        TINYINT 		NOT NULL,
-			[Nombre]				VARCHAR(50)		NOT NULL,
+			[Nombre]				VARCHAR(100)		NOT NULL,
 			CONSTRAINT [PK_Taller] PRIMARY KEY ([Id]),
 		)
 

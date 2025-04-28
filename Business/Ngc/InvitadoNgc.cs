@@ -2,6 +2,7 @@
 using Domain.Dto;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Business.Ngc
@@ -56,8 +57,14 @@ namespace Business.Ngc
                 #endregion
 
                 #region ENVIAR EMAIL
-                
-                _emailService.EnviarCorreoConQr(invitado.CorreoElectronico, invitado.Id.ToString());
+
+                var invitadoParaCorreo_Etd = await _efRpstry.Queryanle<InvitadoEtd>()
+                    .Where(i => i.Id == invitado.Id)
+                    .Include(i => i.TallerRegistrado)
+                    .SingleAsync();
+
+                var bodyCorreo = _emailService.Obtener_Body_ParaInvitado(invitadoParaCorreo_Etd!);
+                _emailService.EnviarCorreoConQr(invitado.CorreoElectronico, invitado.Id.ToString(), bodyCorreo);
 
                 #endregion
 

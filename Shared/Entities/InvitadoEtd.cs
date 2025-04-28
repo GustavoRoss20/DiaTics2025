@@ -40,5 +40,11 @@ namespace Domain.Entities
 
         //FechaRegistro   datetime	8	no
         public DateTime FechaRegistro { get; set; }
+
+        //IdTallerRegistrado tinyint 1	no
+        [Display(Name = "Taller a registrar")]
+        [Required(ErrorMessage = "El valor para '{0}' es necesario.")]
+        public byte IdTallerRegistrado { get; set; }
+        public TallerEtd? TallerRegistrado { get; set; }
     }
 }

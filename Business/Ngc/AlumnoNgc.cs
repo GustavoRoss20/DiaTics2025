@@ -76,7 +76,8 @@ namespace Business.Ngc
                 #region Enviar correo
 
                 var correo = Prv_Obtener_CorreoElectronicoInstitucional(alumno_Etd.NumeroControl);
-                _emailService.EnviarCorreoConQr(correo, alumno_Etd.NumeroControl);
+                var bodyCorreo = _emailService.Obtener_Body_ParaAlumno(alumno_Etd);
+                _emailService.EnviarCorreoConQr(correo, alumno_Etd.NumeroControl, bodyCorreo);
 
                 #endregion
 

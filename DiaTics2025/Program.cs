@@ -11,15 +11,13 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 // GRR: HTTPCLIENT
 builder.Services.AddHttpClient("", config =>
 {
-    config.BaseAddress = new Uri("http://localhost:5000/");
+    config.BaseAddress = new Uri("https://localhost:7243/");
     config.DefaultRequestHeaders.Clear();
 });
 // GRR: FACTORY HTTPCLIENTS
 builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 // GRR: INJECT IOC SERVICE
 builder.Services.AddService();
-
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://tu-backend/api/") });
 builder.Services.AddBlazoredToast();
 
 await builder.Build().RunAsync();
